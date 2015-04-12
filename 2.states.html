@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>state</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="bower_components/react/react.js"></script>
+	<script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
+	<script type="text/jsx">
+		var MessageBox = React.createClass({
+			getInitialState:function(){
+				return{
+					isVisible : true,
+					titleMessage : '你好(来自state)',
+				}
+			},
+			render:function(){
+				var style = {
+					display : this.state.isVisible ? 'block' : 'none',
+				}
+				return( 
+					<div>
+						<h1 style={style}>{this.state.titleMessage}</h1> 
+						<Submessage/>
+					</div>
+				)
+			}
+		});
+
+		var Submessage = React.createClass({
+			render:function(){
+				return( 
+						<h3>Facebook</h3> 
+				)
+			}
+		});
+
+		var messageBox = React.render( <MessageBox/>,
+			document.getElementById('app'),
+			function(){
+				console.log('渲染完成啦！');
+			}
+		 )
+	</script>
+</body>
+</html>
