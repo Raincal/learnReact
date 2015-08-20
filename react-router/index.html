@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello World</title>
+	<link rel="stylesheet" href="base.css">
+	<script type="text/javascript" src="../bower_components/react/react-with-addons.min.js"></script>
+	<script type="text/javascript" src="../bower_components/react-router/build/umd/ReactRouter.min.js"></script>
+	<script type="text/javascript" src="../bower_components/react/JSXTransformer.js"></script>
+</head>
+<body>
+<script type="text/jsx">
+	var Router = ReactRouter;
+	var Route = ReactRouter.Route;
+	var RouteHandler = ReactRouter.RouteHandler;
+	var Link = ReactRouter.Link;
+	var StateMixin = ReactRouter.State;
+	var Books = React.createClass({
+	  render: function(){
+	    return(
+	      <ul>
+	        <li key={1}><Link to="book" params={{id: 1}}>活着</Link></li>
+	        <li key={2}><Link to="book" params={{id: 2}}>挪威的森林</Link></li>
+	        <li key={3}><Link to="book" params={{id: 3}}>从你的全世界走过</Link></li>
+	        <RouteHandler />
+	      </ul>
+	    );
+	  }
+	});
+
+	var Book = React.createClass({
+	  mixins: [StateMixin],
+	  render: function(){
+	    return(
+	      <article>
+	        <h1>这里是图书id为{this.getParams()['id']}的详情介绍</h1>
+	      </article>
+	    );
+	  }
+	});
+
+	var Movies = React.createClass({
+	  render: function(){
+	    return(
+	      <ul>
+	        <li key={1}><Link to="movie" params={{id: 1}}>煎饼侠</Link></li>
+	        <li key={2}><Link to="movie" params={{id: 2}}>捉妖记</Link></li>
+	        <li key={3}><Link to="movie" params={{id: 3}}>西游记之大圣归来</Link></li>
+	      </ul>
+	    );
+	  }
+	});
+
+	var Movie = React.createClass({
+	  mixins: [StateMixin],
+	  render: function(){
+	    return(
+	      <article>
+	        <h1>这里是电影id为{this.getParams().id}的详情介绍</h1>
+	      </article>
+	    );
+	  }
+	});
+
+	var App = React.createClass({
+	  render: function(){
+	    return(
+	      <div className="app">
+	        <nav>
+	          <a href="#"><Link to="movies">电影</Link></a>
+	          <a href="#"><Link to="books">图书</Link></a>
+	        </nav>
+	        <section>
+	          <RouteHandler />
+	        </section>
+	      </div>
+	    );
+	  }
+	});
+
+	var routes = (
+	  <Route handler={App}>
+	    <Route name="movies" handler={Movies} />
+	    <Route name="movie" path="/movie/:id" handler={Movie} />
+	    <Route name="books" handler={Books} />
+	    <Route name="book" path="/book/:id" handler={Books} />
+	  </Route>
+	);
+
+	Router.run(routes, Router.HashLocation, function(Root){
+	  React.render(<Root />, document.body);
+	});
+</script>
+</body>
+</html>
