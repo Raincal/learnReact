@@ -18,13 +18,15 @@
 	var Redirect = ReactRouter.Redirect;
 
 	var Books = React.createClass({
+		mixins: [StateMixin],
 	  render: function(){
-	    return(
+			var id = this.getParams().id;
+	    return id? <Book id={id} /> : (
 	      <div>
 					<ul>
-						<li key={1}><Link to="book" params={{id: 1}}>活着</Link></li>
-						<li key={2}><Link to="book" params={{id: 2}}>挪威的森林</Link></li>
-						<li key={3}><Link to="book" params={{id: 3}}>从你的全世界走过</Link></li>
+						<li key={1}><Link to="books" params={{id: 1}}>活着</Link></li>
+						<li key={2}><Link to="books" params={{id: 2}}>挪威的森林</Link></li>
+						<li key={3}><Link to="books" params={{id: 3}}>从你的全世界走过</Link></li>
 					</ul>
 					<RouteHandler />
 				</div>
@@ -33,24 +35,25 @@
 	});
 
 	var Book = React.createClass({
-	  mixins: [StateMixin],
 	  render: function(){
 	    return(
 	      <article>
-	        <h1>这里是图书id为{this.getParams()['id']}的详情介绍</h1>
+	        <h1>这里是图书id为{this.props.id}的详情介绍</h1>
 	      </article>
 	    );
 	  }
 	});
 
 	var Movies = React.createClass({
+		mixins: [StateMixin],
 	  render: function(){
-	    return(
+			var id = this.getParams().id;
+	    return id? <Movie id={id} /> : (
 	      <div>
 					<ul>
-						<li key={1}><Link to="movie" params={{id: 1}}>煎饼侠</Link></li>
-						<li key={2}><Link to="movie" params={{id: 2}}>捉妖记</Link></li>
-						<li key={3}><Link to="movie" params={{id: 3}}>西游记之大圣归来</Link></li>
+						<li key={1}><Link to="movies" params={{id: 1}}>煎饼侠</Link></li>
+						<li key={2}><Link to="movies" params={{id: 2}}>捉妖记</Link></li>
+						<li key={3}><Link to="movies" params={{id: 3}}>西游记之大圣归来</Link></li>
 					</ul>
 					<RouteHandler />
 				</div>
@@ -59,11 +62,10 @@
 	});
 
 	var Movie = React.createClass({
-	  mixins: [StateMixin],
 	  render: function(){
 	    return(
 	      <article>
-	        <h1>这里是电影id为{this.getParams().id}的详情介绍</h1>
+	        <h1>这里是电影id为{this.props.id}的详情介绍</h1>
 	      </article>
 	    );
 	  }
@@ -87,12 +89,8 @@
 
 	var routes = (
 	  <Route handler={App}>
-			<Route name="movies" handler={Movies}>
-				<Route name="movie" path=":id" handler={Movie} />
-			</Route>
-			<Route name="books" handler={Books}>
-				<Route name="book" path=":id" handler={Book} />
-			</Route>
+			<Route name="movies" path="/movies/:id?" handler={Movies} />
+			<Route name="books" path="/books/:id?" handler={Books} />
 			<Redirect to="movies"/>
 	  </Route>
 	);
