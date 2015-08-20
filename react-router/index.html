@@ -20,12 +20,14 @@
 	var Books = React.createClass({
 	  render: function(){
 	    return(
-	      <ul>
-	        <li key={1}><Link to="book" params={{id: 1}}>活着</Link></li>
-	        <li key={2}><Link to="book" params={{id: 2}}>挪威的森林</Link></li>
-	        <li key={3}><Link to="book" params={{id: 3}}>从你的全世界走过</Link></li>
-	        <RouteHandler />
-	      </ul>
+	      <div>
+					<ul>
+						<li key={1}><Link to="book" params={{id: 1}}>活着</Link></li>
+						<li key={2}><Link to="book" params={{id: 2}}>挪威的森林</Link></li>
+						<li key={3}><Link to="book" params={{id: 3}}>从你的全世界走过</Link></li>
+					</ul>
+					<RouteHandler />
+				</div>
 	    );
 	  }
 	});
@@ -44,11 +46,14 @@
 	var Movies = React.createClass({
 	  render: function(){
 	    return(
-	      <ul>
-	        <li key={1}><Link to="movie" params={{id: 1}}>煎饼侠</Link></li>
-	        <li key={2}><Link to="movie" params={{id: 2}}>捉妖记</Link></li>
-	        <li key={3}><Link to="movie" params={{id: 3}}>西游记之大圣归来</Link></li>
-	      </ul>
+	      <div>
+					<ul>
+						<li key={1}><Link to="movie" params={{id: 1}}>煎饼侠</Link></li>
+						<li key={2}><Link to="movie" params={{id: 2}}>捉妖记</Link></li>
+						<li key={3}><Link to="movie" params={{id: 3}}>西游记之大圣归来</Link></li>
+					</ul>
+					<RouteHandler />
+				</div>
 	    );
 	  }
 	});
@@ -82,11 +87,13 @@
 
 	var routes = (
 	  <Route handler={App}>
-			<Route name="movies" handler={Movies} />
-			<Route name="movie" path="/movie/:id" handler={Movie} />
-			<Route name="books" handler={Books} />
-			<Route name="book" path="/book/:id" handler={Book} />
-			<Redirect to="movies" />
+			<Route name="movies" handler={Movies}>
+				<Route name="movie" path=":id" handler={Movie} />
+			</Route>
+			<Route name="books" handler={Books}>
+				<Route name="book" path=":id" handler={Book} />
+			</Route>
+			<Redirect to="movies"/>
 	  </Route>
 	);
 
