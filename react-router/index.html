@@ -15,6 +15,8 @@
 	var RouteHandler = ReactRouter.RouteHandler;
 	var Link = ReactRouter.Link;
 	var StateMixin = ReactRouter.State;
+	var Redirect = ReactRouter.Redirect;
+
 	var Books = React.createClass({
 	  render: function(){
 	    return(
@@ -80,10 +82,11 @@
 
 	var routes = (
 	  <Route handler={App}>
-	    <Route name="movies" handler={Movies} />
-	    <Route name="movie" path="/movie/:id" handler={Movie} />
-	    <Route name="books" handler={Books} />
-	    <Route name="book" path="/book/:id" handler={Books} />
+			<Route name="movies" handler={Movies} />
+			<Route name="movie" path="/movie/:id" handler={Movie} />
+			<Route name="books" handler={Books} />
+			<Route name="book" path="/book/:id" handler={Book} />
+			<Redirect to="movies" />
 	  </Route>
 	);
 
